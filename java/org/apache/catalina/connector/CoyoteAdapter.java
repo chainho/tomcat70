@@ -648,6 +648,18 @@ public class CoyoteAdapter implements Adapter {
                                       request.getMappingData());
             request.setContext((Context) request.getMappingData().context);
             request.setWrapper((Wrapper) request.getMappingData().wrapper);
+			//add by ho start
+			String requestPath = request.getMappingData().requestPath.toString();
+    		if(requestPath != null) {
+    			if(request.getRequestURI().indexOf(requestPath) < 0) {
+    				if(requestPath.startsWith("/")) {
+            			String real = requestPath.substring(1); 
+            			req.requestURI().setString(decodedURI+real);    			
+            		}else {
+            			req.requestURI().setString(decodedURI+requestPath);
+            		}    				
+    			}
+    		}//add end
 
             // Single contextVersion therefore no possibility of remap
             if (request.getMappingData().contexts == null) {
