@@ -111,6 +111,11 @@ public abstract class AbstractEndpoint {
      */
     protected volatile boolean paused = false;
 
+	/**
+	* Will be set to true when the endpoint is updated.
+	*/
+	protected volatile boolean updated = false;
+	
     /**
      * Are we using an internal executor
      */
@@ -488,6 +493,9 @@ public abstract class AbstractEndpoint {
         return paused;
     }
 
+	public boolean isUpdated() {
+		return updated;
+	}
 
     public void createExecutor() {
         internalExecutor = true;
@@ -674,6 +682,7 @@ public abstract class AbstractEndpoint {
         if (bindState == BindState.BOUND_ON_INIT) {
             unbind();
             bindState = BindState.UNBOUND;
+			updated = true;
         }
     }
 

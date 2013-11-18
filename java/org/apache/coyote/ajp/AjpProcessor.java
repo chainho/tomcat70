@@ -129,6 +129,11 @@ public class AjpProcessor extends AbstractAjpProcessor<Socket> {
                     // This means a connection timeout
                     break;
                 }
+				//ajp connector was updated when it was in using this will break
+                if(endpoint.isUpdated()) {
+                	break;
+                }
+				
                 // Set back timeout if keep alive timeout is enabled
                 if (keepAliveTimeout > 0) {
                     socket.getSocket().setSoTimeout(soTimeout);
